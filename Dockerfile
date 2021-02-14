@@ -21,12 +21,18 @@ RUN mkdir build && cd build && meson .. -Dprefix=/usr/local -Dlibdir=/usr/local/
 
 WORKDIR /tmp/
 
+RUN git clone --depth=1 https://github.com/Netflix/vmaf.git vmaf
+WORKDIR /tmp/vmaf
+RUN cd libvmaf/ && mkdir build && cd build && meson .. -Dprefix=/usr/local -Dlibdir=/usr/local/lib && ninja && ninja install
+
+WORKDIR /tmp/
+
 RUN git clone --depth=1 https://github.com/FFmpeg/FFmpeg ffmpeg
 WORKDIR /tmp/ffmpeg
 RUN export LD_LIBRARY_PATH="/usr/local/lib" && \
    export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig" && \
    ./configure --disable-debug --disable-autodetect --disable-doc --disable-static --disable-hwaccels --enable-shared --disable-stripping --enable-lto --disable-libxcb --disable-alsa --disable-fontconfig --disable-avisynth --disable-libfreetype --disable-sdl2 --disable-ffplay --disable-xlib --disable-vdpau --disable-vaapi --disable-sndio \
-    --enable-gmp --enable-gnutls --enable-libopus --enable-libdav1d --enable-gpl --enable-runtime-cpudetect --enable-libass --enable-version3 --enable-libmp3lame --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-libsvtav1 && \
+    --enable-gmp --enable-gnutls --enable-libopus --enable-libdav1d --enable-gpl --enable-runtime-cpudetect --enable-libass --enable-version3 --enable-libmp3lame --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-libvmaf --enable-libsvtav1 && \
    make -j && \
    make install
 
