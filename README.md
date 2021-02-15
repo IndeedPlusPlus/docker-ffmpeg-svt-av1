@@ -12,3 +12,4 @@ Other libraries:
 - libvpx
 - libx264
 - libx265
+- libvmaf
