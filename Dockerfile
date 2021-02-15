@@ -24,6 +24,7 @@ WORKDIR /tmp/
 RUN git clone --depth=1 https://github.com/Netflix/vmaf.git vmaf
 WORKDIR /tmp/vmaf
 RUN cd libvmaf/ && mkdir build && cd build && meson .. -Dprefix=/usr/local -Dlibdir=/usr/local/lib && ninja && ninja install
+RUN cp -r model/ /usr/local/share/model/
 
 WORKDIR /tmp/
 
