@@ -5,7 +5,6 @@ Other libraries:
 
 - libopus
 - libdav1d
-- libopus
 - libass
 - libmp3lame
 - libvorbis
